@@ -205,3 +205,15 @@ begin
 	values(old.FECHA, old.DURACIÓN, old.ID_INSTALACIÓN, old.GIRA_NOMBRE);
 end $$
 delimiter ;
+
+-- Trigger que guarda en una tabla "nuevas_instalaciones"
+-- todas las instalaciones que se añadan a la base de datos
+delimiter $$
+create trigger instalacion_nueva
+after insert
+on instalaciones for each row
+begin
+	insert into nuevas_instalaciones
+	values(new.ID_INSTALACIONES, new.NOMBRE, new.CAPACIDAD);
+end $$
+delimiter ;
